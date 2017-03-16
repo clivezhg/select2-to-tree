@@ -1,45 +1,69 @@
 ﻿/*!
- * Select2-to-Tree CSS 0.6.0
+ * Select2-to-Tree CSS 0.8.0
+ * https://github.com/clivezhg/select2-to-tree
  */
+ .s2-to-tree * {
+	 box-sizing: border-box;
+ }
 
 .s2-to-tree .select2-results__option.l1 {
 	margin-left: 0.6em;
+	font-size: 1em;
 }
 .s2-to-tree .select2-results__option.l2 {
 	margin-left: 1.4em;
+	font-size: 0.95em;
 }
 .s2-to-tree .select2-results__option.l3 {
 	margin-left: 2.2em;
+	font-size: 0.91em;
 }
 .s2-to-tree .select2-results__option.l4 {
 	margin-left: 3.0em;
+	font-size: 0.87em;
 }
 .s2-to-tree .select2-results__option.l5 {
 	margin-left: 3.8em;
+	font-size: 0.83em;
+}
+.s2-to-tree .select2-results__option.l6 {
+	margin-left: 4.5em;
+	font-size: 0.8em;
+}
+.s2-to-tree .select2-results__option.l7 {
+	margin-left: 5.3em;
+	font-size: 0.77em;
+}
+.s2-to-tree .select2-results__option.l8 {
+	margin-left: 6.0em;
+	font-size: 0.75em;
 }
 
-.s2-to-tree li.select2-results__option:not(.non-leaf) {
-	border-left: 1px solid lightgray;
-}
 .s2-to-tree li.select2-results__option.non-leaf .expand-collapse:hover {
 	color: red;
 }
 .s2-to-tree li.select2-results__option.non-leaf .expand-collapse::before {
 	content: "+";
 	position: absolute;
-	left: -5px; /* 'padding: 6px' in select2's css */
-	width: 11px;
-	font-size: larger;	
+	left: -0.35em;
+	font-size: larger;
+	cursor: pointer;
 }
 .s2-to-tree li.select2-results__option.non-leaf.opened .expand-collapse::before {
 	content: "−";
 }
 
+.s2-to-tree .item-label {
+	display: inline-block;
+	margin-left: 0.5em;
+	padding: 3px;
+	width: calc(100% - 11px);
+}
+
 .s2-to-tree li.select2-results__option {
 	position: relative;
-	box-sizing: border-box;
-	padding: 0px 6px;
-	height: 1.1em;
+	padding: 0px;
+	height: 1.6em;
 	overflow-y: hidden;
 	transition: height 0.18s;
 }
@@ -48,28 +72,29 @@
 	height: 0px;
 }
 .s2-to-tree li.select2-results__option[data-pup].showme {
-	height: 1.1em;
+	height: 1.6em;
 	overflow-y: visible;
 }
 
-.s2-to-tree.select2-container .select2-results__option--highlighted[aria-selected] > span:not(.expand-collapse) {
+.s2-to-tree.select2-container--default .select2-results__option--highlighted[aria-selected] > span.item-label {
   background-color: #5897fb;
   color: white;
-  padding: 3px 6px;
 }
-
-.s2-to-tree.select2-container li.select2-results__option--highlighted[aria-selected] {
-  background-color: inherit;
-  color: inherit;
+.s2-to-tree.select2-container--default li.select2-results__option[aria-selected="true"] > span.item-label {
+	background-color: #ddd;
+}
+.s2-to-tree.select2-container--default li.select2-results__option--highlighted[aria-selected],
+.s2-to-tree.select2-container--default li.select2-results__option[aria-selected="true"] {
+	background-color: inherit;
+	color: inherit;
 }
 
 .s2-to-tree li.select2-results__option.l1 {
 	display: block;
-	height: auto;
 	overflow-y: visible;
 }
 
 .s2-to-tree.searching-result li.select2-results__option {
-	height: auto;
+	height: 1.6em;
 	display: block;
 }
