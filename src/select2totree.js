@@ -1,17 +1,18 @@
 /*!
- * Select2-to-Tree 0.6.0
- * https://github.com/clivezhg/select2-to-tree/
+ * Select2-to-Tree 0.8.0
+ * https://github.com/clivezhg/select2-to-tree
  */
 (function ($) {
 	$.fn.select2ToTree = function (options) {
 		var defaults = {
-			theme: "default" // set this option (e.g., "bootstrap") to set different style
+			theme: "default"
 		};
 		var opts = $.extend(defaults, options);
 		if (opts.treeData) {
 			buildSelect(opts.treeData, this);
 		}
 		opts.templateResult = function (data, container) {
+			var $iteme = $("<span class='item-label'></span>").text(data.text);
 			if (data.element) {
 				var ele = data.element;
 				container.setAttribute("data-val", ele.value);
@@ -20,10 +21,10 @@
 					container.setAttribute("data-pup", ele.getAttribute("data-pup"));
 				}
 				if ($(container).hasClass("non-leaf")) {
-					return $('<span class="expand-collapse"></span>').text(data.text);
+					return $('<span class="expand-collapse"></span>' + $("<div></div").append($iteme).html());
 				}
 			}
-			return $('<span></span>').text(data.text);
+			return $iteme;
 		};
 
 		var expandCollapseTime = 0;
@@ -43,7 +44,6 @@
 
 		s2inst.on("select2:open", function (evt) {
 			var s2data = s2inst.data("select2");
-			/* In 3.X, we can use the 'onSelect' method. "The 4.0 release...At the core, it is a full rewrite..." */
 			// The 'click' event will be after 'select2:selecting'
 			s2data.$dropdown.addClass("s2-to-tree");
 			s2data.$dropdown.find(".searching-result").removeClass("searching-result");
@@ -78,10 +78,14 @@
 				var $opt = $("<option></option>");
 				$opt.text(data[treeData.labelFld || "name"]);
 				$opt.val(data[treeData.valFld || "id"]);
+				if($opt.val() === "") {
+					$opt.prop("disabled", true);
+					$opt.val(getUniqueValue());
+				}
 				$opt.addClass("l" + curLevel);
 				if (pup) $opt.attr("data-pup", pup);
 				$el.append($opt);
-				var inc = data[treeData.valFld || "inc"];
+				var inc = data[treeData.incFld || "inc"];
 				if (inc) {
 					$opt.addClass("non-leaf");
 					buildOptions(inc, curLevel+1, $opt.val());
@@ -90,6 +94,11 @@
 		}
 		buildOptions(treeData.dataArr, 1, "");
 		if (treeData.dftVal) $el.val(treeData.dftVal);
+	}
+
+	var uniqueIdx = 1;
+	function getUniqueValue() {
+		return "autoUniqueVal_" + uniqueIdx++;
 	}
 
 	function toggleSubOptions(target) {
@@ -122,4 +131,5 @@
 			showHideSub(this);
 		});
 	}
+
 })(jQuery);
