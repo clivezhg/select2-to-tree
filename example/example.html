@@ -15,24 +15,24 @@
 	</select>
 	<script>
 		var mydata = [
-		   {id:1, name:"USA", inc:[
-		      {name:"west", inc:[
-		         {id:111, name:"California", inc:[
-		            {id:1111, name:"Los Angeles", inc:[
-		               {id:11111, name:"Hollywood"}
+		   {id:1, text:"USA", inc:[
+		      {text:"west", inc:[
+		         {id:111, text:"California", inc:[
+		            {id:1111, text:"Los Angeles", inc:[
+		               {id:11111, text:"Hollywood"}
 		            ]},
-		            {id:1112, name:"San Diego"}
+		            {id:1112, text:"San Diego"}
 		         ]},
-		         {id:112, name:"Oregon"},
-		      ]},
+		         {id:112, text:"Oregon"}
+		      ]}
 		   ]},
-		   {id:2, name:"India"},
-		   {id:3, name:"中国"}
+		   {id:2, text:"India"},
+		   {id:3, text:"中国"}
 		];
 		$("#sel_1").select2ToTree({treeData: {dataArr: mydata}, maximumSelectionLength: 3});
 	</script>
 
-	<br><br><br>
+	<br>
 
 	<h3>Example 2</h3>
 	<select id="sel_2" style="width:8em">
@@ -45,6 +45,21 @@
 	</select>
 	<script>
 		$("#sel_2").select2ToTree();
+	</script>
+
+	<br>
+
+	<h3>Example 3</h3>
+	<select id="sel_3" style="width:16em" multiple>
+	</select>
+	<script>
+		var ind = mydata[1];
+		ind.inc = [{text:"north", inc:[]}];
+		var inc = ind.inc[0].inc;
+		for (var i = 1; i <= 1500; i++) {
+			inc.push({ id: 1000000+i, text: "india city "+i });
+		}
+		$("#sel_3").select2ToTree({treeData: {dataArr: mydata}, maximumSelectionLength: 3});
 	</script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 ﻿/*!
- * Select2-to-Tree CSS 0.8.0
+ * Select2-to-Tree CSS 1.0.0
  * https://github.com/clivezhg/select2-to-tree
  */
  .s2-to-tree * {
@@ -42,14 +42,15 @@
 .s2-to-tree li.select2-results__option.non-leaf .expand-collapse:hover {
 	color: red;
 }
-.s2-to-tree li.select2-results__option.non-leaf .expand-collapse::before {
+.s2-to-tree li.select2-results__option.non-leaf .expand-collapse:before { /* IE8 doesn't support :: */
 	content: "+";
 	position: absolute;
 	left: -0.35em;
+	top: 0.1em;
 	font-size: larger;
 	cursor: pointer;
 }
-.s2-to-tree li.select2-results__option.non-leaf.opened .expand-collapse::before {
+.s2-to-tree li.select2-results__option.non-leaf.opened .expand-collapse:before {
 	content: "−";
 }
 
@@ -57,34 +58,33 @@
 	display: inline-block;
 	margin-left: 0.5em;
 	padding: 3px;
-	width: calc(100% - 11px);
+	width: calc(100% - 11px); /* IE8 will fit the content */
 }
 
 .s2-to-tree li.select2-results__option {
 	position: relative;
 	padding: 0px;
-	height: 1.6em;
+	height: auto;
 	overflow-y: hidden;
-	transition: height 0.18s;
 }
 
 .s2-to-tree li.select2-results__option[data-pup] {
-	height: 0px;
+	display: none;
 }
 .s2-to-tree li.select2-results__option[data-pup].showme {
-	height: 1.6em;
+	display: block;
 	overflow-y: visible;
 }
 
-.s2-to-tree.select2-container--default .select2-results__option--highlighted[aria-selected] > span.item-label {
+.s2-to-tree.select2-container .select2-results__option--highlighted[aria-selected] > span.item-label {
   background-color: #5897fb;
   color: white;
 }
-.s2-to-tree.select2-container--default li.select2-results__option[aria-selected="true"] > span.item-label {
+.s2-to-tree.select2-container li.select2-results__option[aria-selected="true"] > span.item-label {
 	background-color: #ddd;
 }
-.s2-to-tree.select2-container--default li.select2-results__option--highlighted[aria-selected],
-.s2-to-tree.select2-container--default li.select2-results__option[aria-selected="true"] {
+.s2-to-tree.select2-container li.select2-results__option--highlighted[aria-selected],
+.s2-to-tree.select2-container li.select2-results__option[aria-selected="true"] {
 	background-color: inherit;
 	color: inherit;
 }
@@ -95,6 +95,6 @@
 }
 
 .s2-to-tree.searching-result li.select2-results__option {
-	height: 1.6em;
+	height: auto;
 	display: block;
 }
