@@ -41,17 +41,21 @@
 
 .s2-to-tree li.select2-results__option.non-leaf .expand-collapse:hover {
 	color: red;
+	cursor: pointer;
 }
-.s2-to-tree li.select2-results__option.non-leaf .expand-collapse:before { /* IE8 doesn't support :: */
+.s2-to-tree li.select2-results__option.non-leaf .expand-collapse:before { /* no :: in IE8 */
 	content: "+";
 	position: absolute;
 	left: -0.35em;
 	top: 0.1em;
 	font-size: larger;
-	cursor: pointer;
 }
 .s2-to-tree li.select2-results__option.non-leaf.opened .expand-collapse:before {
 	content: "−";
+}
+
+.s2-to-tree .select2-results__option[aria-disabled="true"] .expand-collapse {
+	color: black;
 }
 
 .s2-to-tree .item-label {
@@ -83,6 +87,7 @@
 .s2-to-tree.select2-container li.select2-results__option[aria-selected="true"] > span.item-label {
 	background-color: #ddd;
 }
+
 .s2-to-tree.select2-container li.select2-results__option--highlighted[aria-selected],
 .s2-to-tree.select2-container li.select2-results__option[aria-selected="true"] {
 	background-color: inherit;
