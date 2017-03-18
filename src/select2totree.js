@@ -20,7 +20,7 @@
 					container.setAttribute("data-pup", ele.getAttribute("data-pup"));
 				}
 				if ($(container).hasClass("non-leaf")) {
-					return $('<span class="expand-collapse" onmouseup="expColMouseupHandler(event);"></span>' + $("<div></div").append($iteme).html());
+					return $.merge($('<span class="expand-collapse" onmouseup="expColMouseupHandler(event);"></span>'), $iteme);
 				}
 			}
 			return $iteme;
@@ -103,7 +103,7 @@
 			if (pup) {
 				var pupEle = $options.find(".select2-results__option[data-val='" + pup + "']");
 				if (pupEle.length > 0) {
-					if (!pupEle.eq(0).hasClass("opened")) {
+					if (!pupEle.eq(0).hasClass("opened")) { // hide current node if any parent node is collapsed
 						$(ele).removeClass("showme");
 						shouldShow = false;
 						break;
