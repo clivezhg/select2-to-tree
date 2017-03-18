@@ -35,19 +35,19 @@ Suppose your HTML is like this:
 And your data:
 ```js
 var mydata = [
-   {id:1, name:"USA", inc:[
-      {name:"west", inc:[
-         {id:111, name:"California", inc:[
-            {id:1111, name:"Los Angeles", inc:[
-               {id:11111, name:"Hollywood"}
+   {id:1, text:"USA", inc:[
+      {text:"west", inc:[
+         {id:111, text:"California", inc:[
+            {id:1111, text:"Los Angeles", inc:[
+               {id:11111, text:"Hollywood"}
             ]},
-            {id:1112, name:"San Diego"}
+            {id:1112, text:"San Diego"}
          ]},
-         {id:112, name:"Oregon"},
-      ]},
+         {id:112, text:"Oregon"}
+      ]}
    ]},
-   {id:2, name:"India"},
-   {id:3, name:"中国"}
+   {id:2, text:"India"},
+   {id:3, text:"中国"}
 ];
 ```
 And you call Select2-to-Tree like the following:
@@ -56,10 +56,10 @@ $("#sel_1").select2ToTree({treeData: {dataArr:mydata}, maximumSelectionLength: 3
 ```
 "`{treeData: {dataArr:mydata}`" is for Select2-to-Tree, "`maximumSelectionLength: 3`" is for Select2 (and you can set the other Select2 arguments if needed)
 
-About the data structure: "`id`" will be used as option value, "`name`" will be used as option label, and "`inc`" will be used to specify sub-level options. If your data structure is not like this, you can set arguments in "`treeData`" to change the default behavior, e.g., `treeData: {dataArr: mydata, valFld: "value", labelFld: "text", incFld: "sub"}`:
+About the data structure: "`id`" will be used as option value, "`text`" will be used as option label, and "`inc`" will be used to specify sub-level options. If your data structure is not like this, you can set arguments in "`treeData`" to change the default behavior, e.g., `treeData: {dataArr: mydata, valFld: "value", labelFld: "name", incFld: "sub"}`:
 - `dataArr`, an array containing the data.
 - `valFld`, the option value field, it's "`id`" by default. (if the value is empty, the corresponding option will be unselectable, see the "west" option in the example)
-- `labelFld`, the option label field, it's "`name`" by default.
+- `labelFld`, the option label field, it's "`text`" by default.
 - `incFld`, the sub options field, it's "`inc`" by default.
 - `dftVal`, the default value.
 
@@ -86,6 +86,11 @@ Then, you call Select2-to-Tree (the "`treeData`" argument of Select-to-Tree is n
 ```js
 $("#sel_2").select2ToTree();
 ```
+
+Constraints
+-----------
+- AJAX data source is not supported.
+- It is a little slower than plain Select2, because there are extra operations to do. Anyway, according to my test (you can check "Example 3" in "example/example.html", click the "India -> north"), 1500 options is basically acceptable, which is enough in most of the real world cases.
 
 Copyright and license
 ---------------------

@@ -1,16 +1,15 @@
 /*!
- * Select2-to-Tree 0.8.0
+ * Select2-to-Tree 1.0.0
  * https://github.com/clivezhg/select2-to-tree
  */
 (function ($) {
 	$.fn.select2ToTree = function (options) {
-		var defaults = {
-			theme: "default"
-		};
-		var opts = $.extend(defaults, options);
+		var opts = $.extend({}, options);
+
 		if (opts.treeData) {
 			buildSelect(opts.treeData, this);
 		}
+
 		opts.templateResult = function (data, container) {
 			var $iteme = $("<span class='item-label'></span>").text(data.text);
 			if (data.element) {
@@ -21,43 +20,31 @@
 					container.setAttribute("data-pup", ele.getAttribute("data-pup"));
 				}
 				if ($(container).hasClass("non-leaf")) {
-					return $('<span class="expand-collapse"></span>' + $("<div></div").append($iteme).html());
+					return $('<span class="expand-collapse" onmouseup="expColMouseupHandler(event);"></span>' + $("<div></div").append($iteme).html());
 				}
 			}
 			return $iteme;
 		};
 
-		var expandCollapseTime = 0;
+		window.expColMouseupHandler = function (evt) {
+			toggleSubOptions(evt.target || evt.srcElement);
+			/* prevent Select2 from doing "select2:selecting","select2:unselecting","select2:closing" */
+			evt.stopPropagation ? evt.stopPropagation() : evt.cancelBubble = true;
+			evt.preventDefault ? evt.preventDefault() : evt.returnValue = false;
+		}
 
 		var s2inst = this.select2(opts);
-		s2inst.on("select2:selecting select2:unselecting", function (evt) {
-			if (Date.now() - expandCollapseTime < 160) {
-				evt.preventDefault();
-			}
-		});
-
-		s2inst.on("select2:closing", function (evt) { // If the clicked is the selected, no 'selecting' will be fired, and 'closing' will be raised
-			if (Date.now() - expandCollapseTime < 160) {
-				evt.preventDefault();
-			}
-		});
 
 		s2inst.on("select2:open", function (evt) {
 			var s2data = s2inst.data("select2");
-			// The 'click' event will be after 'select2:selecting'
 			s2data.$dropdown.addClass("s2-to-tree");
 			s2data.$dropdown.find(".searching-result").removeClass("searching-result");
-			s2data.$dropdown.off("mousedown", ".expand-collapse", mousedownHandler);
-			s2data.$dropdown.on("mousedown", ".expand-collapse", mousedownHandler);
 			var $allsch = s2data.$dropdown.find(".select2-search__field").add( s2data.$container.find(".select2-search__field") );
 			$allsch.off("input", inputHandler);
 			$allsch.on("input", inputHandler);
 		});
-		function mousedownHandler(evt) {
-			toggleSubOptions(evt.target);
-			evt.stopPropagation();
-			expandCollapseTime = Date.now();
-		}
+
+		/* Show search result options even if they are collapsed */
 		function inputHandler(evt) {
 			var s2data = s2inst.data("select2");
 			if ($(this).val().trim().length > 0) {
@@ -71,12 +58,12 @@
 		return s2inst;
 	};
 
-	function buildSelect(treeData, $el) {
+	function buildSelect(treeData, $el) { // build Select options according to Select-to-Tree specification
 		function buildOptions(dataArr, curLevel, pup) {
 			for (var i = 0; i < dataArr.length; i++) {
-				var data = dataArr[i];
+				var data = dataArr[i] || {};
 				var $opt = $("<option></option>");
-				$opt.text(data[treeData.labelFld || "name"]);
+				$opt.text(data[treeData.labelFld || "text"]);
 				$opt.val(data[treeData.valFld || "id"]);
 				if($opt.val() === "") {
 					$opt.prop("disabled", true);
@@ -108,12 +95,13 @@
 
 	function showHideSub(ele) {
 		var curEle = ele;
+		var $options = $(ele).parent(".select2-results__options");
 		var shouldShow = true;
 		do {
-			var pup = $(curEle).attr("data-pup");
+			var pup = ($(curEle).attr("data-pup") || "").replace(/'/g, "\\'");
 			curEle = null;
 			if (pup) {
-				var pupEle = $(".select2-container li.select2-results__option[data-val='" + pup + "']");
+				var pupEle = $options.find(".select2-results__option[data-val='" + pup + "']");
 				if (pupEle.length > 0) {
 					if (!pupEle.eq(0).hasClass("opened")) {
 						$(ele).removeClass("showme");
@@ -126,10 +114,9 @@
 		} while (curEle);
 		if (shouldShow) $(ele).addClass("showme");
 
-		var val = $(ele).attr("data-val");
-		$(".select2-container li.select2-results__option[data-pup='" + val + "']").each(function () {
+		var val = ($(ele).attr("data-val") || "").replace(/'/g, "\\'");
+		$options.find(".select2-results__option[data-pup='" + val + "']").each(function () {
 			showHideSub(this);
 		});
 	}
-
 })(jQuery);
