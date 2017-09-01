@@ -1,5 +1,5 @@
 /*!
- * Select2-to-Tree 1.0.0
+ * Select2-to-Tree 1.1.0
  * https://github.com/clivezhg/select2-to-tree
  */
 (function ($) {
@@ -10,8 +10,13 @@
 			buildSelect(opts.treeData, this);
 		}
 
+		opts.tr_old = opts.templateResult;
 		opts.templateResult = function (data, container) {
-			var $iteme = $("<span class='item-label'></span>").text(data.text);
+			var label = data.text;
+			if (typeof opts.tr_old === "function") {
+				label = opts.tr_old(data, container);
+			}
+			var $iteme = $("<span class='item-label'></span>").append(label);
 			if (data.element) {
 				var ele = data.element;
 				container.setAttribute("data-val", ele.value);

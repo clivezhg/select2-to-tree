@@ -57,9 +57,19 @@
 		ind.inc = [{text:"north", inc:[]}];
 		var inc = ind.inc[0].inc;
 		for (var i = 1; i <= 1500; i++) {
-			inc.push({ id: 1000000+i, text: "india city "+i });
+			inc.push({ id: 10000+i, text: "the city "+i });
 		}
-		$("#sel_3").select2ToTree({treeData: {dataArr: mydata}, maximumSelectionLength: 3});
+		$("#sel_3").select2ToTree({treeData: {dataArr: mydata}, maximumSelectionLength: 3,
+				templateResult: formatState, templateSelection: formatState});
+
+		function formatState (state) {
+			if (state.id >= 1 && state.id <= 3) {
+				return $(
+					'<span><img src="./' + state.element.value.toLowerCase() + '.png" class="img-flag" /> ' + state.text + '</span>'
+				);
+			}
+			else return state.text;
+		};
 	</script>
 </body>
 </html>
