@@ -94,7 +94,7 @@ Constraints
 
 Illustration
 ------------
-"Example 3" in "example/example.html":
+See "Example 3" in "example/example.html":
 
 <img src="https://user-images.githubusercontent.com/22025586/29951519-ce573a82-8ef5-11e7-954d-2fe6c530dbf3.png">
 
