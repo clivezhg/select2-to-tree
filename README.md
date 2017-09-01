@@ -96,7 +96,7 @@ Illustration
 ------------
 "Example 3" in "example/example.html":
 
-<img src="https://cloud.githubusercontent.com/assets/22025586/24068585/aa8c2294-0bcd-11e7-926f-db7dd34b50dd.png">
+<img src="https://user-images.githubusercontent.com/22025586/29951519-ce573a82-8ef5-11e7-954d-2fe6c530dbf3.png">
 
 
 Copyright and license
