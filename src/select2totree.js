@@ -1,5 +1,5 @@
 /*!
- * Select2-to-Tree 1.1.0
+ * Select2-to-Tree 1.1.1
  * https://github.com/clivezhg/select2-to-tree
  */
 (function ($) {
@@ -10,11 +10,11 @@
 			buildSelect(opts.treeData, this);
 		}
 
-		opts.tr_old = opts.templateResult;
+		opts._templateResult = opts.templateResult;
 		opts.templateResult = function (data, container) {
 			var label = data.text;
-			if (typeof opts.tr_old === "function") {
-				label = opts.tr_old(data, container);
+			if (typeof opts._templateResult === "function") {
+				label = opts._templateResult(data, container);
 			}
 			var $iteme = $("<span class='item-label'></span>").append(label);
 			if (data.element) {
@@ -43,7 +43,7 @@
 		s2inst.on("select2:open", function (evt) {
 			var s2data = s2inst.data("select2");
 			s2data.$dropdown.addClass("s2-to-tree");
-			s2data.$dropdown.find(".searching-result").removeClass("searching-result");
+			s2data.$dropdown.removeClass("searching-result");
 			var $allsch = s2data.$dropdown.find(".select2-search__field").add( s2data.$container.find(".select2-search__field") );
 			$allsch.off("input", inputHandler);
 			$allsch.on("input", inputHandler);
