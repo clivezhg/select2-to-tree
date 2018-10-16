@@ -9,6 +9,10 @@ Because Select2 falls back to an &lt;optgroup&gt; when creating nested options, 
 
 Select2-to-Tree extends Select2 to support arbitrary level of nesting.
 
+Select2 compatibility
+---------------------
+* Select2 4+
+
 Browser compatibility
 ---------------------
 * IE 8+
