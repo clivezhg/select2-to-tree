@@ -91,6 +91,18 @@ Then, you call Select2-to-Tree (the "`treeData`" argument of Select-to-Tree is n
 $("#sel_2").select2ToTree();
 ```
 
+Styling
+-----
+Select-to-Tree uses CSS rules(in the select2totree.css file) to control the indent & size of each level, e.g.:
+```
+.s2-to-tree .select2-results__option.l8 {
+	margin-left: 6.0em;
+	font-size: 0.75em;
+}
+```
+By default, Select-to-Tree defines 8 levels, if you need more than 8 levels, you can add your own CSS rules.
+You can also change or override the pre-defined CSS rules to match your requirements.
+
 Constraints
 -----------
 - AJAX data source is not supported.
