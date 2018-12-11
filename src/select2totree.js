@@ -70,6 +70,9 @@
 				var $opt = $("<option></option>");
 				$opt.text(data[treeData.labelFld || "text"]);
 				$opt.val(data[treeData.valFld || "id"]);
+				if (data[treeData.selFld || "selected"] && String(data[treeData.selFld || "selected"]) === "true") {
+					$opt.prop("selected", data[treeData.selFld || "selected"]);
+				}
 				if($opt.val() === "") {
 					$opt.prop("disabled", true);
 					$opt.val(getUniqueValue());
