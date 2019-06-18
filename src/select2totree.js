@@ -78,7 +78,7 @@
 				if (pup) $opt.attr("data-pup", pup);
 				$el.append($opt);
 				var inc = data[treeData.incFld || "inc"];
-				if (inc) {
+				if (inc && inc.length > 0) {
 					$opt.addClass("non-leaf");
 					buildOptions(inc, curLevel+1, $opt.val());
 				}
