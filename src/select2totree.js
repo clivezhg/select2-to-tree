@@ -12,7 +12,7 @@
 
 		opts._templateResult = opts.templateResult;
 		opts.templateResult = function (data, container) {
-			var label = data[opts.treeData.labelFld];
+			var label = data[opts.treeData.labelFld || "text"];
 			if (typeof opts._templateResult === "function") {
 				label = opts._templateResult(data, container);
 			}
