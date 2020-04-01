@@ -68,6 +68,8 @@ About the data structure: "`id`" will be used as option value, "`text`" will be 
 - `incFld`, the sub options field, it's "`inc`" by default.
 - `dftVal`, the default value.
 
+For `valFld` and `labelFld` you can give a object path (ex: `item.label`), we split by `.`.
+
 The above are all the parameters supported by Select2-to-Tree.
 
 <h3>2. directly create the &lt;select&gt; element(see "Example 2" in "example/example.html"):</h3>

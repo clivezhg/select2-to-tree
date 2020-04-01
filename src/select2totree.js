@@ -63,13 +63,41 @@
 		return s2inst;
 	};
 
+	function readPath(object, path){
+		var currentPosition = object;
+		for (var j = 0; j < path.length; j++) {
+			var currentPath = path[j];
+			if (currentPosition[currentPath]){
+			currentPosition = currentPosition[currentPath];
+			continue;
+			}
+			return;
+		}
+		return currentPosition;
+	}
+
 	function buildSelect(treeData, $el) { // build Select options according to Select-to-Tree specification
 		function buildOptions(dataArr, curLevel, pup) {
+			var labelPath;
+			if (treeData.labelFld && treeData.labelFld.split('.').length> 1){
+				labelPath = treeData.labelFld.split('.');
+			}
+			var idPath;
+			if (treeData.valFld && treeData.valFld.split('.').length > 1) {
+				idPath = treeData.valFld.split('.');
+			}
 			for (var i = 0; i < dataArr.length; i++) {
 				var data = dataArr[i] || {};
 				var $opt = $("<option></option>");
-				$opt.text(data[treeData.labelFld || "text"]);
-				$opt.val(data[treeData.valFld || "id"]);
+				if (labelPath){
+					$opt.text(readPath(data,  labelPath));
+				}else {
+					$opt.text(data[treeData.labelFld || "text"]);
+				}
+				if (idPath) {
+					$opt.val(readPath(data, idPath));
+				} else {
+					$opt.val(data[treeData.valFld || "id"]);
 				if (data[treeData.selFld || "selected"] && String(data[treeData.selFld || "selected"]) === "true") {
 					$opt.prop("selected", data[treeData.selFld || "selected"]);
 				}
