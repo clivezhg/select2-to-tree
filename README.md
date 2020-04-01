@@ -9,6 +9,10 @@ Because Select2 falls back to an &lt;optgroup&gt; when creating nested options, 
 
 Select2-to-Tree extends Select2 to support arbitrary level of nesting.
 
+Select2 compatibility
+---------------------
+* Select2 4+
+
 Browser compatibility
 ---------------------
 * IE 8+
@@ -41,7 +45,7 @@ var mydata = [
             {id:1111, text:"Los Angeles", inc:[
                {id:11111, text:"Hollywood"}
             ]},
-            {id:1112, text:"San Diego"}
+            {id:1112, text:"San Diego", selected:"true"}
          ]},
          {id:112, text:"Oregon"}
       ]}
@@ -59,6 +63,7 @@ $("#sel_1").select2ToTree({treeData: {dataArr:mydata}, maximumSelectionLength: 3
 About the data structure: "`id`" will be used as option value, "`text`" will be used as option label, and "`inc`" will be used to specify sub-level options. If your data structure is not like this, you can set arguments in "`treeData`" to change the default behavior, e.g., `treeData: {dataArr: mydata, valFld: "value", labelFld: "name", incFld: "sub"}`:
 - `dataArr`, an array containing the data.
 - `valFld`, the option value field, it's "`id`" by default. (if the value is empty, the corresponding option will be unselectable, see the "west" option in the example)
+- `selFld`, the selected value field, it's "`selected`" by default.
 - `labelFld`, the option label field, it's "`text`" by default.
 - `incFld`, the sub options field, it's "`inc`" by default.
 - `dftVal`, the default value.
@@ -88,6 +93,18 @@ Then, you call Select2-to-Tree (the "`treeData`" argument of Select-to-Tree is n
 ```js
 $("#sel_2").select2ToTree();
 ```
+
+Styling
+-----
+Select-to-Tree uses CSS rules(in the select2totree.css file) to control the indent & size of each level, e.g.:
+```
+.s2-to-tree .select2-results__option.l8 {
+	margin-left: 6.0em;
+	font-size: 0.75em;
+}
+```
+By default, Select-to-Tree defines 8 levels, if you need more than 8 levels, you can add your own CSS rules.
+You can also change or override the pre-defined CSS rules to match your requirements.
 
 Constraints
 -----------
