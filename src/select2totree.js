@@ -98,6 +98,7 @@
 					$opt.val(readPath(data, idPath));
 				} else {
 					$opt.val(data[treeData.valFld || "id"]);
+				}
 				if (data[treeData.selFld || "selected"] && String(data[treeData.selFld || "selected"]) === "true") {
 					$opt.prop("selected", data[treeData.selFld || "selected"]);
 				}
