@@ -67,9 +67,8 @@ About the data structure: "`id`" will be used as option value, "`text`" will be 
 - `labelFld`, the option label field, it's "`text`" by default.
 - `incFld`, the sub options field, it's "`inc`" by default.
 - `dftVal`, the default value.
-For `valFld` and `labelFld`, you can give a object path (eg: `item.label`. see "Example 4" in "example/example.html").
 
-For `valFld` and `labelFld` you can give a object path (ex: `item.label`), we split by `.`.
+For `valFld` and `labelFld`, you can give a object path (eg: `item.label`. see "Example 4" in "example/example.html").
 
 The above are all the parameters supported by Select2-to-Tree.
 
@@ -117,7 +116,6 @@ Illustration
 See "Example 3" in "example/example.html":
 
 <img src="https://user-images.githubusercontent.com/22025586/29951519-ce573a82-8ef5-11e7-954d-2fe6c530dbf3.png">
-
 
 Copyright and license
 ---------------------
