@@ -69,6 +69,8 @@ About the data structure: "`id`" will be used as option value, "`text`" will be 
 - `dftVal`, the default value.
 For `valFld` and `labelFld`, you can give a object path (eg: `item.label`. see "Example 4" in "example/example.html").
 
+For `valFld` and `labelFld` you can give a object path (ex: `item.label`), we split by `.`.
+
 The above are all the parameters supported by Select2-to-Tree.
 
 <h3>2. directly create the &lt;select&gt; element(see "Example 2" in "example/example.html"):</h3>
