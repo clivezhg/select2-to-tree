@@ -71,5 +71,30 @@
 			else return state.text;
 		};
 	</script>
+
+	<br>
+
+	<h3>Example 4</h3>
+	<select id="sel_4" style="width:16em" multiple>
+	</select>
+	<script>
+		var mydata_path = [
+			{"organization": {"shortDescription":"The company A", "idCompanyOrganization":"1"}, "nodes":[
+				{"organization": {"shortDescription":"R & D", "idCompanyOrganization":"1_1"}, "nodes":[]
+				},
+				{"organization": {"shortDescription":"Marketing", "idCompanyOrganization":"1_2"},	"nodes":[
+					{"organization": {"shortDescription":"Asia",	"idCompanyOrganization":"1_2_1"}, "nodes":[
+						{"organization": {"shortDescription":"South-east Asia", "idCompanyOrganization":"1_2_2"}, "nodes":[]
+						}
+						]
+					}
+					]
+				}
+				]
+			}
+		];
+
+		$("#sel_4").select2ToTree({treeData: {dataArr: mydata_path, valFld: "organization.idCompanyOrganization", labelFld: "organization.shortDescription", incFld:'nodes'}, maximumSelectionLength: 3});
+	</script>
 </body>
 </html>

@@ -63,20 +63,23 @@
 		return s2inst;
 	};
 
-	function readPath(object, path){
-		var currentPosition = object;
-		for (var j = 0; j < path.length; j++) {
-			var currentPath = path[j];
-			if (currentPosition[currentPath]){
-			currentPosition = currentPosition[currentPath];
-			continue;
-			}
-			return;
-		}
-		return currentPosition;
-	}
+ 	/* Build the Select Option elements */
+	function buildSelect(treeData, $el) {
 
-	function buildSelect(treeData, $el) { // build Select options according to Select-to-Tree specification
+		/* Support the object path (eg: `item.label`) for 'valFld' & 'labelFld' */
+		function readPath(object, path) {
+			var currentPosition = object;
+			for (var j = 0; j < path.length; j++) {
+				var currentPath = path[j];
+				if (currentPosition[currentPath]) {
+					currentPosition = currentPosition[currentPath];
+					continue;
+				}
+				return 'MISSING';
+			}
+			return currentPosition;
+		}
+
 		function buildOptions(dataArr, curLevel, pup) {
 			var labelPath;
 			if (treeData.labelFld && treeData.labelFld.split('.').length> 1){
@@ -86,12 +89,13 @@
 			if (treeData.valFld && treeData.valFld.split('.').length > 1) {
 				idPath = treeData.valFld.split('.');
 			}
+
 			for (var i = 0; i < dataArr.length; i++) {
 				var data = dataArr[i] || {};
 				var $opt = $("<option></option>");
-				if (labelPath){
-					$opt.text(readPath(data,  labelPath));
-				}else {
+				if (labelPath) {
+					$opt.text(readPath(data, labelPath));
+				} else {
 					$opt.text(data[treeData.labelFld || "text"]);
 				}
 				if (idPath) {
@@ -114,8 +118,9 @@
 					$opt.addClass("non-leaf");
 					buildOptions(inc, curLevel+1, $opt.val());
 				}
-			}
-		}
+			} // end 'for'
+		} // end 'buildOptions'
+
 		buildOptions(treeData.dataArr, 1, "");
 		if (treeData.dftVal) $el.val(treeData.dftVal);
 	}

@@ -67,6 +67,7 @@ About the data structure: "`id`" will be used as option value, "`text`" will be 
 - `labelFld`, the option label field, it's "`text`" by default.
 - `incFld`, the sub options field, it's "`inc`" by default.
 - `dftVal`, the default value.
+For `valFld` and `labelFld`, you can give a object path (eg: `item.label`. see "Example 4" in "example/example.html").
 
 For `valFld` and `labelFld` you can give a object path (ex: `item.label`), we split by `.`.
 
