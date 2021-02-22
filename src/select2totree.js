@@ -10,6 +10,10 @@
 			buildSelect(opts.treeData, this);
 		}
 
+		if (opts.expandSelectedItemParents) {
+			var selectionChain=updateSelectionChain(this);
+		}
+
 		opts._templateResult = opts.templateResult;
 		opts.templateResult = function (data, container) {
 			var label = data.text;
@@ -23,6 +27,12 @@
 				if (ele.className) container.className += " " + ele.className;
 				if (ele.getAttribute("data-pup")) {
 					container.setAttribute("data-pup", ele.getAttribute("data-pup"));
+				}
+				if (opts.expandSelectedItemParents && (selectionChain.indexOf(ele.value)>-1)) {
+					$(container).addClass("showme");
+					if ($(container).hasClass("non-leaf")) {
+						$(container).addClass("opened");
+					}
 				}
 				if ($(container).hasClass("non-leaf")) {
 					return $.merge($('<span class="expand-collapse" onmouseup="expColMouseupHandler(event);"></span>'), $iteme);
@@ -47,6 +57,10 @@
 			var $allsch = s2data.$dropdown.find(".select2-search__field").add( s2data.$container.find(".select2-search__field") );
 			$allsch.off("input", inputHandler);
 			$allsch.on("input", inputHandler);
+		});
+		
+		s2inst.on("select2:select", function (evt) {
+			selectionChain=updateSelectionChain(this);
 		});
 
 		/* Show search result options even if they are collapsed */
@@ -160,5 +174,16 @@
 		$options.find(".select2-results__option[data-pup='" + val + "']").each(function () {
 			showHideSub(this);
 		});
+	}
+	function updateSelectionChain(sl2) {
+
+		var values=[];
+		var currElm=$(sl2).find('option[value='+$(sl2).val()+']');
+		do
+		{
+			values.push(currElm.val());
+		}
+		while((currElm=$(sl2).find('option[value='+currElm.data('pup')+']')).length);
+		return values;
 	}
 })(jQuery);
