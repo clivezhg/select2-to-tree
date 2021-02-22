@@ -38,13 +38,13 @@
 	<select id="sel_2" style="width:8em">
 		<option value="1" class="l1 non-leaf">opt_1</option>
 		<option value="11" data-pup="1" class="l2 non-leaf">opt_11</option>
-		<option value="111" data-pup="11" class="l3">opt_111</option>
+		<option value="111" data-pup="11" class="l3" selected="selected">opt_111</option>
 		<option value="12" data-pup="2" class="l2">opt_12</option>
 		<option value="2" class="l1">opt_2</option>
 		<option value="3" class="l1">opt_3</option>
 	</select>
 	<script>
-		$("#sel_2").select2ToTree();
+		$("#sel_2").select2ToTree({expandSelectedItemParents:true});
 	</script>
 
 	<br>
