@@ -30,7 +30,7 @@
 				}
 				if (opts.expandSelectedItemParents && (selectionChain.indexOf(ele.value)>-1)) {
 					$(container).addClass("showme");
-					if ($(container).hasClass("non-leaf")) {
+					if ($(container).hasClass("non-leaf") && selectionChain.indexOf(ele.value)!==0) {
 						$(container).addClass("opened");
 					}
 				}
