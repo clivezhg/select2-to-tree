@@ -25,7 +25,7 @@
 					container.setAttribute("data-pup", ele.getAttribute("data-pup"));
 				}
 				if ($(container).hasClass("non-leaf")) {
-					return $.merge($('<span class="expand-collapse" onmouseup="expColMouseupHandler(event);"></span>'), $iteme);
+					return $.merge($('<span class="expand-collapse"></span>'), $iteme);
 				}
 			}
 			return $iteme;
@@ -48,7 +48,12 @@
 			$allsch.off("input", inputHandler);
 			$allsch.on("input", inputHandler);
 		});
-
+		
+		/*handle mouse events on collapsable rows*/
+		$('.expand-collapse').on('onmouseup', function (event) {
+			expColMouseupHandler(event);
+		})
+		
 		/* Show search result options even if they are collapsed */
 		function inputHandler(evt) {
 			var s2data = s2inst.data("select2");
