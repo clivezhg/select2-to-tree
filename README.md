@@ -1,5 +1,5 @@
 <h1>This project is not maintained by the author.</h1>
-<h1>_____________________________________________</h1>
+<hr>
 
 Select2-to-Tree
 =======
